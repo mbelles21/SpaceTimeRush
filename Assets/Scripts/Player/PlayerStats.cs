@@ -37,7 +37,7 @@ public class PlayerStats : MonoBehaviour
         levelManager = FindAnyObjectByType<LevelManager>();
 
         if(GameManager.LevelCount == 1) {
-            currentHealth = totalHealth + AdditionalHealth; // to account for health upgrades
+            currentHealth = totalHealth;
             healthBar.SetMaxHealth(totalHealth);
             // Debug.Log("hp= " + currentHealth);
 
@@ -148,7 +148,7 @@ public class PlayerStats : MonoBehaviour
     public void GainHealth(int healing)
     {
         currentHealth += healing;
-        currentHealth = Mathf.Min(currentHealth, totalHealth); // so cannot gain extra health
+        currentHealth = Mathf.Min(currentHealth, totalHealth + AdditionalHealth); // so cannot gain extra health
         healthBar.SetHealth(currentHealth);
     }
 
