@@ -2106,9 +2106,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tracks:
-  - {fileID: 8300000, guid: 2b166cf3c7fe1c64ca391fc715e99be1, type: 3}
-  - {fileID: 8300000, guid: 56cbdf551ab72b746b929ff7974db02f, type: 3}
-  - {fileID: 8300000, guid: de9b0be282c41b0448989f3001975733, type: 3}
+  - {fileID: 8300000, guid: 3fff245aa46844844ad4a672702e96a9, type: 3}
   playSelf: 0
 --- !u!1 &1742278739
 GameObject:

@@ -2172,7 +2172,7 @@ MonoBehaviour:
   countdownTime: 4
   countdownText: {fileID: 774440813}
   countdownSFX: {fileID: 8300000, guid: 883acfd132926d54b864f023c6f3220d, type: 3}
-  gameOverUI: {fileID: 0}
+  gameOverUI: {fileID: 1433574350}
 --- !u!114 &1737518978
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2324,7 +2324,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tracks:
-  - {fileID: 8300000, guid: 5955bcc576c9bf84f991f90dd3ce8acb, type: 3}
+  - {fileID: 8300000, guid: b6056674947946249bdad8fe2d3d44e8, type: 3}
   playSelf: 0
 --- !u!1 &1742278739
 GameObject:
