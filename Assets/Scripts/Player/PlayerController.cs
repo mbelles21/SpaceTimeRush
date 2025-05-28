@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
     private SpriteRenderer spriteRenderer;
     private Color defaultColor;
     public Color dashColor = Color.green;
+    private float objectWidth;
+    private float objectHeight;
 
     private PlayerStats playerStats;
     private SpeedController speedController;
@@ -42,6 +44,8 @@ public class PlayerController : MonoBehaviour
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultColor = spriteRenderer.color;
+        objectWidth = spriteRenderer.bounds.extents.x;
+        objectHeight = spriteRenderer.bounds.extents.y;
 
         playerStats = GetComponent<PlayerStats>();
         speedController = GetComponent<SpeedController>();
@@ -53,16 +57,24 @@ public class PlayerController : MonoBehaviour
 
     IEnumerator MoveToStart()
     {
+        // disable shooting
+        Shooting shooting = GetComponent<Shooting>();
+        shooting.enabled = false;
+
         gameObject.layer = LayerMask.NameToLayer("enemy"); // change layer so obj can pass thru the level bounds
         float entranceSpeed = moveSpeed * 2.5f;
 
-        while(Vector3.Distance(transform.position, startingPos) > 0.1f) {
+        while (Vector3.Distance(transform.position, startingPos) > 0.1f)
+        {
             transform.position = Vector3.MoveTowards(transform.position, startingPos, entranceSpeed * Time.deltaTime);
             yield return null;
         }
 
         transform.position = startingPos;
         gameObject.layer = LayerMask.NameToLayer("player");
+
+        // enable shooting
+        shooting.enabled = true; // TODO: re-enable when level countdown reaches 0
     }
 
     // Update is called once per frame
@@ -108,7 +120,16 @@ public class PlayerController : MonoBehaviour
     // used for physics updates
     void FixedUpdate() 
     {
-        rb.MovePosition(rb.position + movement * activeMoveSpeed * Time.deltaTime);
+        Vector2 newPos = rb.position + movement * activeMoveSpeed * Time.deltaTime;
+
+        // restrict movement 
+        Vector2 min = playerCamera.ViewportToWorldPoint(new Vector2(0, 0));
+        Vector2 max = playerCamera.ViewportToWorldPoint(new Vector2(1, 1));
+
+        newPos.x = Mathf.Clamp(newPos.x, min.x + objectWidth, max.x - objectWidth);
+        newPos.y = Mathf.Clamp(newPos.y, min.y + objectHeight, max.y - objectHeight);
+
+        rb.MovePosition(newPos);
 
         Vector2 lookDir = mousePos - rb.position;
         float angle = Mathf.Atan2(lookDir.y, lookDir.x) * Mathf.Rad2Deg - 90f; // offset by 90 bc it needs to be

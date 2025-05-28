@@ -26,19 +26,19 @@ public class PickupManager : MonoBehaviour
     void SpawnPickup(Transform t)
     {
         int r = Random.Range(1, 101);
-        if(r <= 30) {
+        if(r <= 10) {
             Debug.Log(pickupsList[0].name + " spawned");
             Instantiate(pickupsList[0], t.position, Quaternion.identity);
         }
-        else if(r > 30 && r <= 40) {
+        else if(r > 10 && r <= 20) {
             Debug.Log(pickupsList[1].name + " spawned");
             Instantiate(pickupsList[1], t.position, Quaternion.identity);
         }
-        else if(r > 40 && r <= 60) {
+        else if(r > 20 && r <= 30) {
             Debug.Log(pickupsList[2].name + " spawned");
             Instantiate(pickupsList[2], t.position, Quaternion.identity);
         }
-        else if(r > 60 && r <= 90) {
+        else if(r > 30 && r <= 40) {
             Debug.Log(pickupsList[3].name + " spawned");
             Instantiate(pickupsList[3], t.position, Quaternion.identity);
         }

@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MaxHealth: 10
-  scoreValue: 100
+  scoreValue: 10
   isMeteor: 0
   hitSFX: {fileID: 8300000, guid: c41d041399a257f4599cd183fd5d47b8, type: 3}
 --- !u!114 &7853881455285819098

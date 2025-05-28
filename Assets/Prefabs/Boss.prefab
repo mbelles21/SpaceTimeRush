@@ -310,7 +310,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  scoreValue: 5000
+  scoreValue: 50
   hitSFX: {fileID: 8300000, guid: 38eb3affe722af34c85bc2e5604fb7e1, type: 3}
 --- !u!114 &70823965073642262
 MonoBehaviour:

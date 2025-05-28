@@ -138,7 +138,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   ID: 2
   timeToDespawn: 5
-  scoreValue: 25
+  scoreValue: 5
   pickupSFX: {fileID: 8300000, guid: cb58a8e1114b9064aae0a13710c65bd0, type: 3}
   minHealingAmount: 1
   maxHealingAmount: 10
