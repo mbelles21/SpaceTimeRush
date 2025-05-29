@@ -7,6 +7,9 @@ public class Enemy : MonoBehaviour
     public delegate void EnemyDied(int points, Transform t); // so it can talk to other scripts
     public static event EnemyDied OnEnemyDied; // ditto
 
+    public static float FastSpeedMod = 0f; // here bc all enemies have this component
+    public static bool IsTimeModified = false; // also here to help keep track of enemy speeds (mostly for when/if new ones spawn)
+
     public int MaxHealth = 10;
     private int totalHealth = 0;
 

@@ -4,28 +4,56 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    
+    private float activeMoveSpeed;
     public float moveSpeed = 5f;
     public float targetY = 7f;
     public float targetX = 5f; // used as a distance not a coordinate
-    
+
     public int loopNum = 3;
 
     private Rigidbody2D rb;
-    
+
     // Start is called before the first frame update
     void Start()
     {
         // adjust speed based on difficulty
-        if(GameManager.LevelDifficulty == 1) {
+        if (GameManager.LevelDifficulty == 1)
+        {
             moveSpeed -= 1f;
         }
-        if(GameManager.LevelDifficulty == 3) {
+        if (GameManager.LevelDifficulty == 3)
+        {
             moveSpeed += 1f;
+        }
+
+        // check if time is fast for new enemies that spawn
+        if (Enemy.IsTimeModified)
+        {
+            activeMoveSpeed = moveSpeed - Enemy.FastSpeedMod;
+        }
+        else
+        {
+            activeMoveSpeed = moveSpeed;
         }
 
         rb = GetComponent<Rigidbody2D>();
         StartMoving();
+
+        SpeedController.OnTimeSpeedUp += EnemyOnTimeSpeedUp;
+    }
+
+    void EnemyOnTimeSpeedUp(bool b)
+    {
+        if (b)
+        {
+            Enemy.IsTimeModified = true;
+            activeMoveSpeed = moveSpeed - Enemy.FastSpeedMod;
+        }
+        else
+        {
+            Enemy.IsTimeModified = false;
+            activeMoveSpeed = moveSpeed;
+        }
     }
 
     void Update()
@@ -51,10 +79,13 @@ public class EnemyMovement : MonoBehaviour
         Vector2 startPos = rb.position;
         int loopCount = 0;
 
-        if(startPos.y > 0) {
+        if (startPos.y > 0)
+        {
             // top right
-            if(startPos.x > 0) {
-                while(loopCount < loopNum) {
+            if (startPos.x > 0)
+            {
+                while (loopCount < loopNum)
+                {
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x, -targetY)));
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x - targetX, rb.position.y)));
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x, targetY)));
@@ -63,8 +94,10 @@ public class EnemyMovement : MonoBehaviour
                 }
             }
             // top left
-            else if(startPos.x < 0) {
-                while(loopCount < loopNum) {
+            else if (startPos.x < 0)
+            {
+                while (loopCount < loopNum)
+                {
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x, -targetY)));
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x + targetX, rb.position.y)));
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x, targetY)));
@@ -73,10 +106,13 @@ public class EnemyMovement : MonoBehaviour
                 }
             }
         }
-        else if(startPos.y < 0) {
+        else if (startPos.y < 0)
+        {
             // bottom right
-            if(startPos.x > 0) {
-                while(loopCount < loopNum) {
+            if (startPos.x > 0)
+            {
+                while (loopCount < loopNum)
+                {
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x, targetY)));
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x - targetX, rb.position.y)));
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x, -targetY)));
@@ -85,8 +121,10 @@ public class EnemyMovement : MonoBehaviour
                 }
             }
             // bottom left
-            else if(startPos.x < 0) {
-                while(loopCount < loopNum) {
+            else if (startPos.x < 0)
+            {
+                while (loopCount < loopNum)
+                {
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x, targetY)));
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x + targetX, rb.position.y)));
                     yield return StartCoroutine(MoveToPosition(new Vector2(rb.position.x, -targetY)));
@@ -95,14 +133,15 @@ public class EnemyMovement : MonoBehaviour
                 }
             }
         }
-        
+
         StartCoroutine(EndMovement());
     }
 
     IEnumerator MoveToPosition(Vector2 targetPos)
     {
-        while(rb.position != targetPos) {
-            rb.position = Vector2.MoveTowards(rb.position, targetPos, moveSpeed * Time.deltaTime);
+        while (rb.position != targetPos)
+        {
+            rb.position = Vector2.MoveTowards(rb.position, targetPos, activeMoveSpeed * Time.deltaTime);
             yield return null;
         }
     }
@@ -128,5 +167,10 @@ public class EnemyMovement : MonoBehaviour
         // Ensure the enemy has moved completely off-screen
         rb.position = initialPosition + direction * offScreenDistance;
         Destroy(gameObject);
+    }
+
+    void OnDestroy()
+    {
+        SpeedController.OnTimeSpeedUp -= EnemyOnTimeSpeedUp;
     }
 }

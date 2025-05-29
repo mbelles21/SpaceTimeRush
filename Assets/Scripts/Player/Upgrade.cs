@@ -1,5 +1,6 @@
 
 using System.Collections.Generic;
+using UnityEngine;
 
 public class Upgrade
 {
@@ -17,39 +18,58 @@ public class Upgrade
     {
         new Upgrade(1, "Health +10"),
         new Upgrade(2, "Health +5"),
-        new Upgrade(3, "Fast Limit Up"),
-        new Upgrade(4, "Slow Limit Up"),
-        new Upgrade(5, "Fast Cooldown Reduction"),
-        new Upgrade(6, "Slow Cooldown Reduction"),
+        new Upgrade(3, "Fast Duration+"),
+        new Upgrade(4, "Slow Duration+"),
+        new Upgrade(5, "Fast Cooldown+"),
+        new Upgrade(6, "Slow Cooldown+"),
         new Upgrade(7, "Damage Up"),
-        new Upgrade(8, "Fire Rate Up")
+        new Upgrade(8, "Fire Rate Up"),
+        new Upgrade(9, "Slow Movement+"),
+        new Upgrade(10, "Fast Movement+")
     };
 
     public static void GetUpgrade(int id)
     {
-        if(id == 1) {
+        if (id == 1)
+        {
             PlayerStats.AdditionalHealth += 10;
         }
-        if(id == 2) {
+        if (id == 2)
+        {
             PlayerStats.AdditionalHealth += 5;
         }
-        if(id == 3) {
-            SpeedController.FastLimitUp += 0.5f; // gain 30 sec
+        if (id == 3)
+        {
+            SpeedController.FastLimitUp += 0.2f;
         }
-        if(id == 4) {
-            SpeedController.SlowLimitUp += 0.5f; // gain 30 sec
+        if (id == 4)
+        {
+            SpeedController.SlowLimitUp += 0.2f;
         }
-        if(id == 5) {
+        if (id == 5)
+        {
             SpeedController.FastCooldownReduction += 0.05f;
         }
-        if(id == 6) {
+        if (id == 6)
+        {
             SpeedController.SlowCooldownReduction += 0.05f;
         }
-        if(id == 7) {
+        if (id == 7)
+        {
             Bullet.DamageUpgrades += 1;
         }
-        if(id == 8) {
+        if (id == 8)
+        {
             Shooting.FireRateUp += 0.25f;
+        }
+        if (id == 9)
+        {
+            PlayerController.SlowSpeedMod += 0.1f;
+        }
+        if (id == 10)
+        {
+            Enemy.FastSpeedMod += 0.05f; // value will be subtracted when being used so its fine to be positive here
+            Enemy.FastSpeedMod = Mathf.Min(Enemy.FastSpeedMod, 4.95f); // make sure it doesn't go lower than the enemy move speed
         }
     }
 }

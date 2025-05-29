@@ -1856,8 +1856,8 @@ MonoBehaviour:
   totalScoreText: {fileID: 264370725}
   speedScoreText: {fileID: 1000729124}
   slowScoreText: {fileID: 146434392}
-  speedMultiplier: 1000
-  slowMultiplier: 100
+  speedMultiplier: 20
+  slowMultiplier: 10
 --- !u!114 &1737518974
 MonoBehaviour:
   m_ObjectHideFlags: 0

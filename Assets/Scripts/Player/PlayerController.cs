@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    public static float SlowSpeedMod = 0f;
+    // public float testSpeedMod = 3f;
     public float moveSpeed = 5f;
+    private bool isSpeedModified = false;
+
     private Rigidbody2D rb;
     public Camera playerCamera;
 
     Vector2 movement;
-    Vector2 mousePos;   
+    Vector2 mousePos;
 
     public float knockbackForce = 10f;
     public AudioClip hitSFX;
-    
+
     private float activeMoveSpeed;
     public float boostSpeed = 10f;
     public float boostLength = 0.5f;
@@ -80,15 +84,18 @@ public class PlayerController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(levelManager.GetTimerRunning()) {
+        if (levelManager.GetTimerRunning())
+        {
             movement.x = Input.GetAxis("Horizontal");
             movement.y = Input.GetAxis("Vertical");
 
             mousePos = playerCamera.ScreenToWorldPoint(Input.mousePosition);
 
             // for boosting
-            if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.LeftShift)) {
-                if(boostCoolTimer <= 0 && boostTimer <= 0) {
+            if (Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.LeftShift))
+            {
+                if (boostCoolTimer <= 0 && boostTimer <= 0)
+                {
                     spriteRenderer.color = dashColor;
                     activeMoveSpeed = boostSpeed;
                     boostTimer = boostLength;
@@ -100,9 +107,11 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if(boostTimer > 0) {
+            if (boostTimer > 0)
+            {
                 boostTimer -= Time.deltaTime;
-                if(boostTimer <= 0) {
+                if (boostTimer <= 0)
+                {
                     spriteRenderer.color = GetCurrentColor();
                     activeMoveSpeed = moveSpeed;
                     boostCoolTimer = boostCooldown;
@@ -111,16 +120,25 @@ public class PlayerController : MonoBehaviour
                 }
             }
 
-            if(boostCoolTimer > 0) {
+            if (boostCoolTimer > 0)
+            {
                 boostCoolTimer -= Time.deltaTime;
             }
         }
     }
 
     // used for physics updates
-    void FixedUpdate() 
+    void FixedUpdate()
     {
-        Vector2 newPos = rb.position + movement * activeMoveSpeed * Time.deltaTime;
+        Vector2 newPos;
+        if (isSpeedModified)
+        {
+            newPos = rb.position + movement * (activeMoveSpeed + SlowSpeedMod) * Time.deltaTime;
+        }
+        else
+        {
+            newPos = rb.position + movement * activeMoveSpeed * Time.deltaTime;
+        }
 
         // restrict movement 
         Vector2 min = playerCamera.ViewportToWorldPoint(new Vector2(0, 0));
@@ -137,15 +155,17 @@ public class PlayerController : MonoBehaviour
     }
 
 
-    void OnCollisionEnter2D(Collision2D collision) 
+    void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.CompareTag("enemy") || collision.gameObject.CompareTag("boss")) {
+        if (collision.gameObject.CompareTag("enemy") || collision.gameObject.CompareTag("boss"))
+        {
             Debug.Log("collided with enemy");
             Vector2 knockbackDir = (transform.position - collision.transform.position).normalized;
             Vector2 force = knockbackDir * knockbackForce;
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, knockbackDir, knockbackForce, LayerMask.GetMask("wall"));
-            if(hit.collider != null) {
+            if (hit.collider != null)
+            {
                 knockbackDir = Vector2.Reflect(knockbackDir, hit.normal); // reflect dir if hitting a wall
                 force = knockbackDir * knockbackForce;
             }
@@ -158,24 +178,30 @@ public class PlayerController : MonoBehaviour
             src.Play();
 
             Enemy e = collision.gameObject.GetComponent<Enemy>();
-            if(e != null) {
+            if (e != null)
+            {
                 e.Damage(1);
-            } else {
+            }
+            else
+            {
                 Debug.LogWarning("missing enemy component");
             }
         }
-        else {
+        else
+        {
             Debug.Log("collided with " + collision.gameObject.name);
         }
 
         // so knockback applies when player collides with boss laser beam
-        if(collision.gameObject.CompareTag("bullet") && collision.gameObject.GetComponent<Bullet>().IsBulletLaser()) {
+        if (collision.gameObject.CompareTag("bullet") && collision.gameObject.GetComponent<Bullet>().IsBulletLaser())
+        {
             Debug.Log("collided with laser beam");
             Vector2 knockbackDir = (transform.position - collision.transform.position).normalized;
             Vector2 force = knockbackDir * knockbackForce;
 
             RaycastHit2D hit = Physics2D.Raycast(transform.position, knockbackDir, knockbackForce, LayerMask.GetMask("wall"));
-            if(hit.collider != null) {
+            if (hit.collider != null)
+            {
                 knockbackDir = Vector2.Reflect(knockbackDir, hit.normal); // reflect dir if hitting a wall
                 force = knockbackDir * knockbackForce;
             }
@@ -186,14 +212,29 @@ public class PlayerController : MonoBehaviour
 
     Color GetCurrentColor()
     {
-        if(SpeedController.CurrentSpeed == 0) {
+        if (SpeedController.CurrentSpeed == 0)
+        {
             return defaultColor;
         }
-        else if(SpeedController.CurrentSpeed == 1) {
+        else if (SpeedController.CurrentSpeed == 1)
+        {
             return speedController.slowedColor;
         }
-        else {
+        else
+        {
             return speedController.fastColor;
+        }
+    }
+
+    public void SetSlowSpeed(bool b)
+    {
+        if (b)
+        {
+            isSpeedModified = true;
+        }
+        else
+        {
+            isSpeedModified = false;
         }
     }
 }

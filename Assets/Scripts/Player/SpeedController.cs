@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class SpeedController : MonoBehaviour
 {
+    public delegate void TimeSpeedUp(bool b);
+    public static event TimeSpeedUp OnTimeSpeedUp;
+
     private bool isSlowed = false;
     private bool isFast = false;
 
@@ -42,10 +45,13 @@ public class SpeedController : MonoBehaviour
     public AudioClip slowSFX;
     private AudioSource src;
 
+    private PlayerController player;
+
     // Start is called before the first frame update
     void Start()
     {
         src = GetComponent<AudioSource>();
+        player = GetComponent<PlayerController>();
 
         CurrentSpeed = 0;
         fastLimit += FastLimitUp;
@@ -74,14 +80,17 @@ public class SpeedController : MonoBehaviour
             fastBarFilled = true;
         }
 
-        if(isFast) {
+        // update timers
+        if (isFast)
+        {
             timeFast += Time.deltaTime * 0.5f; // adjusted to increment at normal rate
             fastTimer += Time.deltaTime * 0.5f;
             carryTimeF = fastTimer;
 
             fastBar.SetSpeedTime(fastLimit - fastTimer);
 
-            if(fastTimer >= fastLimit) {
+            if (fastTimer >= fastLimit)
+            {
                 ToggleFast();
                 fastCoolingDown = true;
                 fastCooldownTimer = 0f; // reset cooldown timer here
@@ -158,18 +167,26 @@ public class SpeedController : MonoBehaviour
         isFast = false;
         slowTimer = 0f;
 
-        if(isSlowed) {
+        if (isSlowed)
+        {
             CurrentSpeed = 1;
             Time.timeScale = 0.5f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale; // update fixedDeltaTime so physics updates stay consistent
             spriteRenderer.color = slowedColor;
             src.clip = slowSFX;
             src.Play();
-        } 
-        else {
+            player.SetSlowSpeed(true); // to modify player speed when upgrades
+            if (OnTimeSpeedUp != null)
+            {
+                OnTimeSpeedUp.Invoke(false);
+            }
+        }
+        else
+        {
             Time.timeScale = 1f;
             Time.fixedDeltaTime = 0.02f;
             spriteRenderer.color = defaultColor;
+            player.SetSlowSpeed(false); // to revert player to normal speed
         }
     }
 
@@ -179,18 +196,29 @@ public class SpeedController : MonoBehaviour
         isSlowed = false;
         fastTimer = 0f; // reset speed timer when toggling
 
-        if(isFast) {
+        if (isFast)
+        {
             CurrentSpeed = 2;
             Time.timeScale = 1.5f;
             Time.fixedDeltaTime = 0.02f * Time.timeScale; // update fixedDeltaTime so physics updates stay consistent
             spriteRenderer.color = fastColor;
             src.clip = fastSFX;
             src.Play();
-        } 
-        else {
+            player.SetSlowSpeed(false); // to revert player to normal speed (just in case going from slow to fast)
+            if (OnTimeSpeedUp != null)
+            {
+                OnTimeSpeedUp.Invoke(true);
+            }
+        }
+        else
+        {
             Time.timeScale = 1f;
             Time.fixedDeltaTime = 0.02f;
             spriteRenderer.color = defaultColor;
+            if (OnTimeSpeedUp != null)
+            {
+                OnTimeSpeedUp.Invoke(false);
+            }
         }
     }
 
