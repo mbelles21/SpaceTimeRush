@@ -25,7 +25,10 @@ public class Upgrade
         new Upgrade(7, "Damage Up"),
         new Upgrade(8, "Fire Rate Up"),
         new Upgrade(9, "Slow Movement+"),
-        new Upgrade(10, "Fast Movement+")
+        new Upgrade(10, "Fast Movement+"),
+        new Upgrade(11, "Boost+"),
+        new Upgrade(12, "Shield +1"),
+        new Upgrade(13, "Shield Reduction+")
     };
 
     public static void GetUpgrade(int id)
@@ -70,6 +73,18 @@ public class Upgrade
         {
             Enemy.FastSpeedMod += 0.05f; // value will be subtracted when being used so its fine to be positive here
             Enemy.FastSpeedMod = Mathf.Min(Enemy.FastSpeedMod, 4.95f); // make sure it doesn't go lower than the enemy move speed
+        }
+        if (id == 11)
+        {
+            PlayerController.BoostModifier += 0.1f;
+        }
+        if (id == 12)
+        {
+            PlayerStats.AdditionalShield += 1;
+        }
+        if (id == 13)
+        {
+            PlayerStats.AdditionalReduction += 0.05f;
         }
     }
 }

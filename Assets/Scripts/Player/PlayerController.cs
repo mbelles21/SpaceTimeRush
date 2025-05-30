@@ -18,6 +18,7 @@ public class PlayerController : MonoBehaviour
     public float knockbackForce = 10f;
     public AudioClip hitSFX;
 
+    public static float BoostModifier = 0f;
     private float activeMoveSpeed;
     public float boostSpeed = 10f;
     public float boostLength = 0.5f;
@@ -45,6 +46,7 @@ public class PlayerController : MonoBehaviour
 
         rb = GetComponent<Rigidbody2D>();
         activeMoveSpeed = moveSpeed;
+        boostSpeed += BoostModifier; // for boost upgrades
 
         spriteRenderer = GetComponent<SpriteRenderer>();
         defaultColor = spriteRenderer.color;

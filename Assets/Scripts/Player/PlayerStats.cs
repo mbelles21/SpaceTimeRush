@@ -6,13 +6,16 @@ public class PlayerStats : MonoBehaviour
 {
     public static int HealthBetweenLevels;
     public static float ShieldBetweenLevels;
+
     public static int AdditionalHealth = 0; // might need to change this
     public int totalHealth = 50;
     private int currentHealth = 0;
     public HealthBar healthBar;
 
-    public int totalShield = 10;
-    private float currentShield = 0;
+    public static float AdditionalShield = 0f;
+    public static float AdditionalReduction = 0f;
+    public float totalShield = 10f;
+    private float currentShield = 0f;
     public float damageReduction = 0.5f;
     public HealthBar shieldBar;
     private bool hasShield;
@@ -56,7 +59,7 @@ public class PlayerStats : MonoBehaviour
             // Debug.Log("hp= " + currentHealth);
 
             currentShield = ShieldBetweenLevels;
-            shieldBar.SetCurrentShield(currentShield, totalShield); // TODO: add shield upgrades when they exist
+            shieldBar.SetCurrentShield(currentShield, totalShield + AdditionalShield);
             if(currentShield > 0) {
                 hasShield = true;
             }
@@ -65,6 +68,8 @@ public class PlayerStats : MonoBehaviour
             }
             // Debug.Log("shield= " + currentShield);
         }
+
+        damageReduction += AdditionalReduction; // add damage reduction upgrades
 
         DamageDoubled = false; // to make sure it's false on start
     }
@@ -155,7 +160,7 @@ public class PlayerStats : MonoBehaviour
     public void GainShield(int healing)
     {
         currentShield += healing;
-        currentShield = Mathf.Min(currentShield, totalShield); // so cannot gain extra shield
+        currentShield = Mathf.Min(currentShield, totalShield + AdditionalShield); // so cannot gain extra shield
         shieldBar.SetShield(currentShield);
     }
 
