@@ -14,13 +14,18 @@ public class ResultsMenu : MonoBehaviour
     {
         upgradeChoices = new List<Upgrade>();
 
-        foreach(Button button in buttonsList) {
-            int r = GenerateRandomNumber(Upgrade.upgradesList.Count);
-            Upgrade upgrade = Upgrade.upgradesList[r];
-            upgradeChoices.Add(upgrade); // will be at index corresponding to button (i think)
+        // set up so we can skip this if not getting an upgrade from level (mainly for healing levels)
+        if (buttonsList.Count > 0)
+        {
+            foreach (Button button in buttonsList)
+            {
+                int r = GenerateRandomNumber(Upgrade.upgradesList.Count);
+                Upgrade upgrade = Upgrade.upgradesList[r];
+                upgradeChoices.Add(upgrade); // will be at index corresponding to button (i think)
 
-            TextMeshProUGUI text = button.GetComponentInChildren<TextMeshProUGUI>();
-            text.text = upgrade.name;
+                TextMeshProUGUI text = button.GetComponentInChildren<TextMeshProUGUI>();
+                text.text = upgrade.name;
+            }
         }
     }
 

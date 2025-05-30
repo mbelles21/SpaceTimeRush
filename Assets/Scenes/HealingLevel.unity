@@ -142,6 +142,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1737518974}
+    - target: {fileID: 539298892468525981, guid: 811b6d9c51da8f841a1a5febbe4632a2, type: 3}
+      propertyPath: buttonsList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1005153752899203488, guid: 811b6d9c51da8f841a1a5febbe4632a2, type: 3}
       propertyPath: m_Name
       value: Results Menu Parent
@@ -188,6 +192,22 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2845862864311877742, guid: 811b6d9c51da8f841a1a5febbe4632a2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3073732606952988523, guid: 811b6d9c51da8f841a1a5febbe4632a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3263818403720712978, guid: 811b6d9c51da8f841a1a5febbe4632a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5496906763715303201, guid: 811b6d9c51da8f841a1a5febbe4632a2, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6100392218408336121, guid: 811b6d9c51da8f841a1a5febbe4632a2, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6477193528990016474, guid: 811b6d9c51da8f841a1a5febbe4632a2, type: 3}
@@ -2028,7 +2048,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 79a261a2f54de694e96c5d196d139d63, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelType: 0
+  levelType: 3
   timerText: {fileID: 1742278741}
   levelText: {fileID: 1020260915}
   timer: 30
