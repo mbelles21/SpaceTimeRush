@@ -42,7 +42,7 @@ public class Enemy : MonoBehaviour
             Destroy(gameObject);
         }
 
-        if(!levelManager.timerRunning) {
+        if(!levelManager.timerRunning && levelManager.levelType != 1) {
             Destroy(gameObject);
         }
     }

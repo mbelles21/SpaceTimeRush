@@ -10,6 +10,8 @@ TagManager:
   - pickup
   - boss
   - background
+  - vertical
+  - horizontal
   layers:
   - Default
   - TransparentFX

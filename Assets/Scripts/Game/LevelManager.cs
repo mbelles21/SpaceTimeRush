@@ -39,6 +39,7 @@ public class LevelManager : MonoBehaviour
         musicManager = GetComponent<MusicManager>();
 
         if(levelType == 1) {
+            GetComponent<BossManager>().SpawnBoss(); // will spawn random boss
             timer = 0;
         }
 

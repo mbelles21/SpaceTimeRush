@@ -142,7 +142,7 @@ public class PlayerController : MonoBehaviour
             newPos = rb.position + movement * activeMoveSpeed * Time.deltaTime;
         }
 
-        // restrict movement 
+        // restrict movement to camera view
         Vector2 min = playerCamera.ViewportToWorldPoint(new Vector2(0, 0));
         Vector2 max = playerCamera.ViewportToWorldPoint(new Vector2(1, 1));
 

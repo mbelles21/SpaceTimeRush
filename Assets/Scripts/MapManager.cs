@@ -5,10 +5,11 @@ using UnityEngine;
 public class MapManager : MonoBehaviour
 {
     public Transform startPoint;
-    public int columns = 3;
+    public int columns = 3; // max should be 8
     public static int MaxColumns;
     public static int ColIndex;
     public float columnSpacing = 5f;
+    public float rowSpacing = 2f;
 
     // index 0: disabled, 1: cleared, 2: level
     [Header("Icon Prefabs")]
@@ -55,7 +56,7 @@ public class MapManager : MonoBehaviour
             {
                 if (i == 0)
                 {
-                    iconSpacing = 3f;
+                    iconSpacing = rowSpacing;
                 }
                 if (i == 1)
                 {
@@ -63,7 +64,7 @@ public class MapManager : MonoBehaviour
                 }
                 if (i == 2)
                 {
-                    iconSpacing = -3f;
+                    iconSpacing = -rowSpacing;
                 }
 
                 Vector3 spawnPos = new Vector3(startPos.x + columnSpacing, iconSpacing, startPos.z);

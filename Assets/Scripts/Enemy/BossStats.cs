@@ -33,7 +33,16 @@ public class BossStats : MonoBehaviour
             bossDead = true;
             // OnBossDied.Invoke(scoreValue); // this wouldn't work for some reason
             levelManager.BossDefeated(scoreValue);
-            Destroy(gameObject);
+
+            if (transform.parent != null)
+            {
+                Destroy(transform.parent.gameObject); // added bc boss 2 uses a parent obj for its movement
+            }
+            else
+            {
+                Destroy(gameObject);
+            }
+            
             // StartCoroutine(Kill());
         }
     }
