@@ -181,8 +181,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3614e93fd2ef94142b21e433c752d93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 10
-  scoreValue: 10
+  MaxHealth: 25
+  scoreValue: 15
   isMeteor: 0
   hitSFX: {fileID: 8300000, guid: c41d041399a257f4599cd183fd5d47b8, type: 3}
 --- !u!114 &2258126994035159699
@@ -595,8 +595,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3614e93fd2ef94142b21e433c752d93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 10
-  scoreValue: 10
+  MaxHealth: 25
+  scoreValue: 15
   isMeteor: 0
   hitSFX: {fileID: 8300000, guid: c41d041399a257f4599cd183fd5d47b8, type: 3}
 --- !u!114 &8143307774158776037
@@ -896,8 +896,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3614e93fd2ef94142b21e433c752d93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 10
-  scoreValue: 10
+  MaxHealth: 25
+  scoreValue: 15
   isMeteor: 0
   hitSFX: {fileID: 8300000, guid: c41d041399a257f4599cd183fd5d47b8, type: 3}
 --- !u!114 &2622967365783794014
@@ -1197,8 +1197,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3614e93fd2ef94142b21e433c752d93a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MaxHealth: 10
-  scoreValue: 10
+  MaxHealth: 25
+  scoreValue: 15
   isMeteor: 0
   hitSFX: {fileID: 8300000, guid: c41d041399a257f4599cd183fd5d47b8, type: 3}
 --- !u!114 &3388431834451841877

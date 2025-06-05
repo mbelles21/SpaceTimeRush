@@ -16,6 +16,7 @@ public class Icon : MonoBehaviour
     private Color iconColor;
     private Renderer iconRenderer;
     public SpriteRenderer childRenderer;
+    public TextMeshProUGUI difficultyText; 
 
     public int colID;
 
@@ -154,7 +155,9 @@ public class Icon : MonoBehaviour
 
     private int GenerateDifficulty()
     {
-        return Random.Range(1, 4);
+        int r = Random.Range(1, 4);
+        difficultyText.text = r.ToString(); // to display difficulty number on the icon
+        return r;
     }
 
     public void SetIconColor()

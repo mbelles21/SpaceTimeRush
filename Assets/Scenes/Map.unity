@@ -2004,6 +2004,7 @@ MonoBehaviour:
   startPoint: {fileID: 6786944648461494901}
   columns: 8
   columnSpacing: 2
+  rowSpacing: 2
   icons:
   - {fileID: 682306203157814315, guid: 78fe5b07aeef27745b5d4c2923655176, type: 3}
   - {fileID: 1801859458147719200, guid: 3f1f3c90eacc9144dad43fc945c9bd88, type: 3}

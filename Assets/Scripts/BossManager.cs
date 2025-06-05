@@ -10,6 +10,7 @@ public class BossManager : MonoBehaviour
     public void SpawnBoss()
     {
         int r = Random.Range(0, bossPrefabs.Count);
-        Instantiate(bossPrefabs[r], startPos, bossPrefabs[r].transform.rotation);
+        GameObject bossPrefab = bossPrefabs[r];
+        Instantiate(bossPrefab, startPos, bossPrefab.transform.rotation);
     }
 }

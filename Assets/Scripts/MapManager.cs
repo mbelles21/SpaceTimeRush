@@ -95,7 +95,7 @@ public class MapManager : MonoBehaviour
             {
                 if (i == 0)
                 {
-                    iconSpacing = 3f;
+                    iconSpacing = rowSpacing;
                 }
                 if (i == 1)
                 {
@@ -103,7 +103,7 @@ public class MapManager : MonoBehaviour
                 }
                 if (i == 2)
                 {
-                    iconSpacing = -3f;
+                    iconSpacing = -rowSpacing;
                 }
 
                 Vector3 spawnPos = new Vector3(startPos.x + columnSpacing, iconSpacing, startPos.z);
@@ -137,13 +137,13 @@ public class MapManager : MonoBehaviour
 
         for(int i = 0; i < PrevIcons.Count; i++) {
             if(i % 3 == 0) {
-                iconSpacing = 3f;
+                iconSpacing = rowSpacing;
             }
             if(i % 3 == 1) {
                 iconSpacing = 0f;
             }
             if(i % 3 == 2) {
-                iconSpacing = -3f;
+                iconSpacing = -rowSpacing;
             }
             
             Vector3 spawnPos = new Vector3(startPos.x + columnSpacing, iconSpacing, startPos.z);

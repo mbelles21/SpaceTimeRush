@@ -2288,7 +2288,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bossPrefabs:
   - {fileID: 7644279555371960737, guid: fef26021823ab2b43aa90845bebc688e, type: 3}
-  startPos: {x: 25, y: 0, z: 0}
+  - {fileID: 2510550263892117965, guid: 49cbf4789ed4d6047a099053939cf06b, type: 3}
+  startPos: {x: 10, y: 0, z: 0}
 --- !u!1 &1742278739
 GameObject:
   m_ObjectHideFlags: 0
